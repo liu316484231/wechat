@@ -1,20 +1,29 @@
 # -*- coding: utf-8 -*-
-import json
+import configparser
 import random
 import requests
 import time
 import pymysql
+
 from bs4 import BeautifulSoup
 
-# 目标url
 url = "https://mp.weixin.qq.com/cgi-bin/appmsg"
-
-cookies = "*"
-
 ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36"
 
+config = configparser.ConfigParser()
+config.read('config.ini')
+
+conn = pymysql.connect(config['mysql']['mysql_url'], user=config['mysql']['mysql_user'],
+                       passwd=config['mysql']['mysql_password'], db=config['mysql']['mysql_db'])
+cur = conn.cursor()
+ggh_name = config['ggh']['ggh_name']
+ggh_class = config['ggh']['ggh_class']
+ggh_id = config['ggh']['ggh_id']
+cookies = config['ggh']['ggh_cookies']
+token = config['ggh']['ggh_token']
+
 data = {
-    "token": "881855475",
+    "token": token,
     "lang": "zh_CN",
     "f": "json",
     "ajax": "1",
@@ -22,23 +31,18 @@ data = {
     "begin": "0",
     "count": "5",
     "query": "",
-    "fakeid": "MzU0OTA0MjQ0Ng==",
+    "fakeid": ggh_id,
     "type": "9",
 }
 
-conn = pymysql.connect('*', user="*", passwd="*", db="*")
-cur = conn.cursor()
-
-ggh_name="*"
-
-for i in range(0,100):
-    print("begin:" + str(i*5))
+for i in range(0, 100):
+    print("begin:" + str(i * 5))
     data["begin"] = i * 5
     headers = {
         "Cookie": cookies,
         "User-Agent": ua
     }
-    time.sleep(random.randint(2,5))
+    time.sleep(random.randint(2, 5))
     response = requests.get(url, headers=headers, params=data)
     content_json = response.json()
     print(response.text)
@@ -70,8 +74,8 @@ for i in range(0,100):
         html = str(tag)
         item['text'] = text
         item['html'] = html
-        result = (link, title, cover, digest, text, html,ggh_name)
-        sql = "insert into ggh(url,title,cover,digest,text,html,ggh_name) values(%s,%s,%s,%s,%s,%s,%s)"
+        result = (link, title, cover, digest, text, html, ggh_name,ggh_class)
+        sql = "insert into ggh(url,title,cover,digest,text,html,ggh_name,class) values(%s,%s,%s,%s,%s,%s,%s,%s)"
         try:
             insert = cur.execute(sql, result)
             conn.commit()
