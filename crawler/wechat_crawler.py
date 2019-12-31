@@ -36,7 +36,7 @@ data = {
 }
 
 for i in range(0, 20):
-    print("begin:" + str(i * 5))
+    print("第" + str(i) + "页(每页5篇文章)")
     data["begin"] = i * 5
     headers = {
         "Cookie": cookies,

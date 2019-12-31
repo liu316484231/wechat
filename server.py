@@ -6,6 +6,7 @@ from flask import render_template
 from crawler.download_pic import download_pic
 from crawler.html_beautify import beautify
 from model import get_article, get_list, get_count
+from util.chinese_translate import chs_to_cht
 
 app = Flask(__name__)
 
@@ -15,7 +16,42 @@ def health():
 
 @app.route('/',methods = ['GET'])
 def index():
-    return render_template('index.html')
+    rec = get_list(0, 6, "all")
+    top = get_list(0, 6, "all")
+    food = get_list(0, 5, "food")
+    list_rec = []
+    list_top = []
+    list_food = []
+    for item in rec:
+        list_rec.append({
+            'id': item['id'],
+            'title': chs_to_cht(item['title'])[:20],
+            'class': item['class'],
+            'digest': chs_to_cht(item['digest'])[:20]+"...",
+            'cover': download_pic(item['cover'])
+        })
+    for item in top:
+        list_top.append({
+            'id': item['id'],
+            'title': chs_to_cht(item['title'])[:20],
+            'class': item['class'],
+            'digest': chs_to_cht(item['digest'])[:20]+"...",
+            'cover': download_pic(item['cover'])
+        })
+    for item in food:
+        list_food.append({
+            'id': item['id'],
+            'title': chs_to_cht(item['title'])[:20],
+            'class': item['class'],
+            'digest': chs_to_cht(item['digest'])[:20]+"...",
+            'cover': download_pic(item['cover'])
+        })
+    data = {
+        'rec': list_rec,
+        'top': list_top,
+        'food' : list_food,
+    }
+    return render_template('index.html', data=data)
 
 @app.route('/<string:cls>/<int:id>',methods = ['GET'])
 def article(cls,id):
@@ -40,9 +76,9 @@ def list(cls):
     for item in result:
         list.append({
             'id' : item['id'],
-            'digest' : item['digest'],
-            'class' : item['class'],
-            'title' : item['title'],
+            'title': chs_to_cht(item['title']),
+            'class': item['class'],
+            'digest' : chs_to_cht(item['digest']),
             'cover' : download_pic(item['cover'])
         })
     all_page_name = int(sum/count)+1

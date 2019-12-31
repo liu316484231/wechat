@@ -3,8 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bulma.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <style>
+        .mc {
+            margin: auto;
+            margin-top: 30px;
+            width: 95%;
+        }
+
+        .box {
+            border: 2px solid black;
+            box-shadow: 5px 5px 5px #888888;
+        }
+
+        a:link {
+            color: black;
+        }
+
+        .title {
+            font-size: medium;
+            font-weight: bolder;
+        }
+
+        .digest {
+            font-size: small;
+            color: gray;
+        }
+
+        .item {
+            border: 1px solid gray;
+            height: 100px;
+            margin: auto;
+            margin-top: 5px;
+            padding: 10px;
+        }
+
+        .pic {
+            padding: 2px;
+        }
+
+
+    </style>
 </head>
 <body>
+{% include 'header.html' %}
 
+<div class="ad"></div>
+<div class="mc">
+    <div class="columns">
+        <div class="column">
+            <div class="rec box">
+                <h2>推荐阅读</h2>
+                {% for item in data.rec %}
+                <div class="item">
+                    <div class="columns">
+                        <div class="is-one-third">
+                            <div class="pic">
+                                <img src="{{item.cover}}" width="160px" height="80px"/>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="title"><a href="/{{item.class}}/{{item.id}}" target="_blank">{{item.title}}</a>
+                            </div>
+                            <div class="digest">{{item.digest}}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column">
+            <div class="top box">
+                <h2>最新文章</h2>
+                {% for item in data.top %}
+                <div class="item">
+                    <div class="columns">
+                        <div class="is-one-third">
+                            <div class="pic">
+                                <img src="{{item.cover}}" width="160px" height="80px"/>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="title"><a href="/{{item.class}}/{{item.id}}" target="_blank">{{item.title}}</a>
+                            </div>
+                            <div class="digest">{{item.digest}}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <div class="columns">
+        <div class="column">
+            <div class="food box">
+                <h2>美食</h2>
+                {% for item in data.food %}
+                <div class="item">
+                    <div class="columns">
+                        <div class="is-one-third">
+                            <div class="pic">
+                                <img src="{{item.cover}}" width="160px" height="80px"/>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="title"><a href="/{{item.class}}/{{item.id}}" target="_blank">{{item.title}}</a>
+                            </div>
+                            <!--<div class="digest">{{item.digest}}</div>-->
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="column">
+            <div class="yingxiao box">
+
+            </div>
+        </div>
+        <div class="column">
+            <div class="food box">
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% include 'footer.html' %}
 </body>
 </html>
