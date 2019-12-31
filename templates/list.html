@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>文章列表</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/bulma.css"/>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <style>
+        .item {
+            border: 2px solid black;
+            width: 70%;
+            height: 220px;
+            margin: auto;
+            margin-top: 10px;
+            padding: 20px;
+            box-shadow: 5px 5px 5px #888888;
+        }
+
+        .pic {
+            width: 300px;
+        }
+
+        .title {
+            font-size: larger;
+            font-weight: bolder;
+        }
+
+        .digest {
+            color: darkgray;
+        }
+
+        a:link {
+            color: black;
+        }
+
+        .ad {
+            margin-top: 60px;
+        }
+        .paging{
+            margin: auto;
+            max-width: 65%;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+{% include 'header.html' %}
+
+<div class="ad"></div>
+
+
+{% for item in data.list %}
+<div class="item">
+    <div class="columns">
+        <div class="is-one-third">
+            <div class="pic"><img src="{{item.cover}}" width="300px" height="200px"/></div>
+        </div>
+        <div class="column">
+            <div class="title"><a href="/{{item.class}}/{{item.id}}" target="_blank">{{item.title}}</a></div>
+            <div class="digest">{{item.digest}}</div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<div class="paging">
+    <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
+        <ul class="pagination-list">
+            {% for i in range(data.count) %}
+                {% if data.pageNum == i%}
+                    <li><a class="pagination-link is-current" href="/list/{{data.cls}}?num={{i}}&count=20">{{i+1}}</a></li>
+                    {% else %}
+                    <li><a class="pagination-link" href="/list/{{data.cls}}?num={{i}}&count=20">{{i+1}}</a></li>
+                {% endif %}
+            {% endfor %}
+            <!--<li><span class="pagination-ellipsis">&hellip;</span></li>-->
+             <!--<li><a class="pagination-link is-current"  aria-current="page">46</a></li>-->
+        </ul>
+    </nav>
+</div>
+
+{% include 'footer.html' %}
+</body>
+</html>

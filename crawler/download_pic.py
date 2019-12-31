@@ -10,7 +10,7 @@ def download_pic(url):
     pic_name = hashlib.md5(url.encode(encoding='UTF-8')).hexdigest()
     print(pic_name)
     response = requests.get(url)
-    save_path = 'pics/' + pic_name + ".jpg"
+    save_path = 'static/pics/' + pic_name + ".jpg"
     if os.path.exists(save_path):
         return "/"+save_path
     image = Image.open(BytesIO(response.content))

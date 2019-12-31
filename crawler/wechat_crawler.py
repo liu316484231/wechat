@@ -35,7 +35,7 @@ data = {
     "type": "9",
 }
 
-for i in range(0, 100):
+for i in range(0, 20):
     print("begin:" + str(i * 5))
     data["begin"] = i * 5
     headers = {
@@ -65,18 +65,18 @@ for i in range(0, 100):
             "sec-fetch-site": "none",
             "upgrade-insecure-requests": "1"
         }
-        time.sleep(random.randint(3, 6))
+        time.sleep(random.randint(5, 10))
         # print(link)
-        response = requests.get(link, headers=headers)
-        soup = BeautifulSoup(response.text, 'lxml')
-        tag = soup.find(id="js_content")
-        text = tag.text
-        html = str(tag)
-        item['text'] = text
-        item['html'] = html
-        result = (link, title, cover, digest, text, html, ggh_name,ggh_class)
-        sql = "insert into ggh(url,title,cover,digest,text,html,ggh_name,class) values(%s,%s,%s,%s,%s,%s,%s,%s)"
         try:
+            response = requests.get(link, headers=headers)
+            soup = BeautifulSoup(response.text, 'lxml')
+            tag = soup.find(id="js_content")
+            text = tag.text
+            html = str(tag)
+            item['text'] = text
+            item['html'] = html
+            result = (link, title, cover, digest, text, html, ggh_name,ggh_class)
+            sql = "insert into ggh(url,title,cover,digest,text,html,ggh_name,class) values(%s,%s,%s,%s,%s,%s,%s,%s)"
             insert = cur.execute(sql, result)
             conn.commit()
             print('inserted ', result)
