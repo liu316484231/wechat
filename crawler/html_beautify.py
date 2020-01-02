@@ -24,8 +24,8 @@ def beautify(html):
         del sec['powered-by']
 
     format_html = str(soup.find(id='my_content'))
-    print(chs_to_cht(format_html))
-    return chs_to_cht(format_html)
+    print(format_html)
+    return format_html
 
 if __name__ == "__main__":
     print("go..")

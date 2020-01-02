@@ -7,6 +7,9 @@ import pymysql
 
 from bs4 import BeautifulSoup
 
+from crawler.download_pic import download_pic
+from crawler.html_beautify import beautify
+
 url = "https://mp.weixin.qq.com/cgi-bin/appmsg"
 ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.62 Safari/537.36"
 
@@ -76,7 +79,9 @@ for i in range(0, 20):
             item['text'] = text
             item['html'] = html
             result = (link, title, cover, digest, text, html, ggh_name,ggh_class)
-            sql = "insert into ggh(url,title,cover,digest,text,html,ggh_name,class) values(%s,%s,%s,%s,%s,%s,%s,%s)"
+            new_cover = download_pic(cover)
+            new_html = beautify(html)
+            sql = "insert into ggh(url,title,new_cover,digest,text,new_html,ggh_name,class) values(%s,%s,%s,%s,%s,%s,%s,%s)"
             insert = cur.execute(sql, result)
             conn.commit()
             print('inserted ', result)
