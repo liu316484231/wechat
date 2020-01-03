@@ -14,6 +14,18 @@ def get_list(pageNum, pageCount, cls="all"):
     offset = pageCount
     with DB() as db:
         if cls == "all":
+            db.execute('select id,title,cover,digest,class from ggh limit %s, %s', (start, offset))
+        else:
+            db.execute('select id,title,cover,digest,class from ggh where class=%s limit %s, %s', (cls, start, offset))
+        result = db.fetchall()
+        print(result)
+        return result
+
+def get_list_rand(pageNum, pageCount, cls="all"):
+    start = pageNum * pageCount
+    offset = pageCount
+    with DB() as db:
+        if cls == "all":
             db.execute('select id,title,cover,digest,class from ggh ORDER BY RAND() limit %s, %s', (start, offset))
         else:
             db.execute('select id,title,cover,digest,class from ggh where class=%s ORDER BY RAND() limit %s, %s', (cls, start, offset))

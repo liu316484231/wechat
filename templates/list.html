@@ -5,6 +5,7 @@
     <title>文章列表</title>
     <link rel="stylesheet" type="text/css" href="/static/css/bulma.css"/>
     <link rel="stylesheet" type="text/css" href="/static/css/style.css"/>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/img/logo.png"/>
     <style>
         .item {
             border: 2px solid black;
@@ -36,7 +37,8 @@
         .ad {
             margin-top: 60px;
         }
-        .paging{
+
+        .paging {
             margin: auto;
             max-width: 65%;
             margin-top: 40px;
@@ -67,14 +69,14 @@
     <nav class="pagination is-rounded" role="navigation" aria-label="pagination">
         <ul class="pagination-list">
             {% for i in range(data.count) %}
-                {% if data.pageNum == i%}
-                    <li><a class="pagination-link is-current" href="/list/{{data.cls}}?num={{i}}&count=20">{{i+1}}</a></li>
-                    {% else %}
-                    <li><a class="pagination-link" href="/list/{{data.cls}}?num={{i}}&count=20">{{i+1}}</a></li>
-                {% endif %}
+            {% if data.pageNum == i%}
+            <li><a class="pagination-link is-current" href="/list/{{data.cls}}?num={{i}}&count=20">{{i+1}}</a></li>
+            {% else %}
+            <li><a class="pagination-link" href="/list/{{data.cls}}?num={{i}}&count=20">{{i+1}}</a></li>
+            {% endif %}
             {% endfor %}
             <!--<li><span class="pagination-ellipsis">&hellip;</span></li>-->
-             <!--<li><a class="pagination-link is-current"  aria-current="page">46</a></li>-->
+            <!--<li><a class="pagination-link is-current"  aria-current="page">46</a></li>-->
         </ul>
     </nav>
 </div>

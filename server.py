@@ -1,7 +1,7 @@
 from flask import Flask, jsonify, request
 from flask import render_template
 
-from model import get_article, get_list, get_count
+from model import get_article, get_list, get_count, get_list_rand
 from util.chinese_translate import chs_to_cht
 
 app = Flask(__name__)
@@ -14,9 +14,9 @@ def health():
 
 @app.route('/', methods=['GET'])
 def index():
-    rec = get_list(0, 6, "all")
-    top = get_list(0, 6, "all")
-    food = get_list(0, 5, "food")
+    rec = get_list_rand(0, 6, "all")
+    top = get_list_rand(0, 6, "all")
+    food = get_list_rand(0, 5, "food")
     list_rec = []
     list_top = []
     list_food = []
@@ -57,7 +57,7 @@ def article(cls, id):
     result = get_article(cls, id)
     if result == None:
         return render_template('404.html')
-    rec = get_list(0, 6, "all")
+    rec = get_list_rand(0, 6, "all")
     list_rec = []
     for item in rec:
         list_rec.append({
