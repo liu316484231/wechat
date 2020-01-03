@@ -38,7 +38,7 @@ data = {
     "type": "9",
 }
 
-for i in range(0, 20):
+for i in range(0, 10):
     print("第" + str(i) + "页(每页5篇文章)")
     data["begin"] = i * 5
     headers = {
@@ -78,10 +78,10 @@ for i in range(0, 20):
             html = str(tag)
             item['text'] = text
             item['html'] = html
-            result = (link, title, cover, digest, text, html, ggh_name,ggh_class)
             new_cover = download_pic(cover)
             new_html = beautify(html)
-            sql = "insert into ggh(url,title,new_cover,digest,text,new_html,ggh_name,class) values(%s,%s,%s,%s,%s,%s,%s,%s)"
+            result = (link, title, new_cover, digest, text, new_html, ggh_name,ggh_class)
+            sql = "insert into ggh(url,title,cover,digest,text,html,ggh_name,class) values(%s,%s,%s,%s,%s,%s,%s,%s)"
             insert = cur.execute(sql, result)
             conn.commit()
             print('inserted ', result)
