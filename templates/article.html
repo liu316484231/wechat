@@ -5,30 +5,88 @@
     <title>{{data.title}}</title>
     <link rel="stylesheet" type="text/css" href="/static/css/bulma.css"/>
     <style>
-        .article{
+        .article {
             width: 70%;
             margin: auto;
         }
-        img{
+
+        img {
             max-width: 400px;
             max-height: 400px;
         }
-        .article{
+
+        .article {
             padding: 40px;
+        }
+
+        a:link {
+            color: black;
+        }
+
+        .title {
+            font-size: medium;
+            font-weight: bolder;
+        }
+
+        .digest {
+            font-size: small;
+            color: gray;
+        }
+
+        .item {
+            border: 1px solid gray;
+            height: 100px;
+            margin: auto;
+            margin-top: 5px;
+            padding: 10px;
+        }
+
+        .pic {
+            padding: 2px;
+        }
+
+        .rec {
+            margin: auto;
+            width: 95%;
         }
     </style>
 </head>
 <body>
 
 {% include 'header.html' %}
-    <div class="article">
-        {{data.html|safe}}
-        <div class="statement" style="margin-top: 20px">
-            <strong> [文章均轉載自公共號，版權歸原作者所有] </strong>
+<div class="article">
+    {{data.html|safe}}
+    <div class="statement" style="margin-top: 20px">
+        <strong> [文章均轉載自公共號，版權歸原作者所有] </strong>
+    </div>
+</div>
+<div class="slider"></div>
+<div class="rec">
+    <div class="columns">
+        <div class="column">
+            <div class="rec box">
+                <h2><strong>推荐阅读</strong></h2>
+                {% for item in data.list %}
+                <div class="item">
+                    <div class="columns">
+                        <div class="is-one-third">
+                            <div class="pic">
+                                <img src="{{item.cover}}"
+                                     style="max-height: 80px;max-width: 160px; width: 160px; height: 80px"/>
+                            </div>
+                        </div>
+                        <div class="column">
+                            <div class="title"><a href="/{{item.class}}/{{item.id}}" target="_blank">{{item.title}}</a>
+                            </div>
+                            <div class="digest">{{item.digest}}</div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
         </div>
     </div>
-    <div class="slider"></div>
-
+</div>
 
 {% include 'footer.html' %}
 </body>

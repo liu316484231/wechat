@@ -57,9 +57,20 @@ def article(cls, id):
     result = get_article(cls, id)
     if result == None:
         return render_template('404.html')
+    rec = get_list(0, 6, "all")
+    list_rec = []
+    for item in rec:
+        list_rec.append({
+            'id': item['id'],
+            'title': chs_to_cht(item['title'])[:20],
+            'class': item['class'],
+            'digest': chs_to_cht(item['digest'])[:20] + "...",
+            'cover': item['cover']
+        })
     data = {
         'title': result['title'],
-        'html': result['html']
+        'html': result['html'],
+        'list' : list_rec
     }
     return render_template('article.html', data=data)
 
