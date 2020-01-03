@@ -5,7 +5,6 @@ def get_article(cls,id):
     with DB() as db:
         db.execute('select * from ggh where id=%s and class=%s', (id,cls))
         result = db.fetchone()
-        print(result)
         return result
 
 # 从0开始
@@ -18,7 +17,6 @@ def get_list(pageNum, pageCount, cls="all"):
         else:
             db.execute('select id,title,cover,digest,class from ggh where class=%s limit %s, %s', (cls, start, offset))
         result = db.fetchall()
-        print(result)
         return result
 
 def get_list_rand(pageNum, pageCount, cls="all"):
@@ -30,7 +28,6 @@ def get_list_rand(pageNum, pageCount, cls="all"):
         else:
             db.execute('select id,title,cover,digest,class from ggh where class=%s ORDER BY RAND() limit %s, %s', (cls, start, offset))
         result = db.fetchall()
-        print(result)
         return result
 
 def get_count(cls="all"):
@@ -40,7 +37,6 @@ def get_count(cls="all"):
         else:
             db.execute('select count(*) as count from ggh where class=%s', (cls))
         result = db.fetchone()
-        print(result)
         return int(result['count'])
 
 if __name__ == '__main__':
