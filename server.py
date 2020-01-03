@@ -26,9 +26,9 @@ def index():
     # 以下改為多線程去拉
     t1 = MyThread(get_list_rand, (0,6,"all"))
     t2 = MyThread(get_list_rand, (0,6,"all"))
-    t3 = MyThread(get_list_rand, (0,5,"food"))
-    t4 = MyThread(get_list_rand, (0,5,"movie"))
-    t5 = MyThread(get_list_rand, (0,5,"yingxiao"))
+    t3 = MyThread(get_list, (0,5,"food"))
+    t4 = MyThread(get_list, (0,5,"movie"))
+    t5 = MyThread(get_list, (0,5,"yingxiao"))
     t_list = [t1, t2, t3, t4, t5]
     for t in t_list:
         t.start()
