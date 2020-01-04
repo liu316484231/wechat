@@ -32,7 +32,7 @@ def creat_xml(filename, url_list):  # 生成sitemap所需要的xml方法
 
 
 if __name__ == '__main__':
-    host = "https://www.bing.com"
+    host = "https://www.readmakeslifebetter.com"
     with DB() as db:
         db.execute('select id,class from ggh')
         result = db.fetchall()
