@@ -52,10 +52,11 @@
             width: 95%;
         }
     </style>
+      {% include 'header.html' %}
 </head>
 <body>
 
-{% include 'header.html' %}
+{% include 'nav.html' %}
 <div class="article">
     {{data.html|safe}}
     <div class="statement" style="margin-top: 20px">

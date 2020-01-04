@@ -24,7 +24,7 @@ def index():
     # movie = get_list(0, 5, "movie")
     # yingxiao = get_list(0, 5, "yingxiao")
     # 以下改為多線程去拉
-    t1 = MyThread(get_list, (0,6,"all"))
+    t1 = MyThread(get_list_rand, (0,6,"all"))
     t2 = MyThread(get_list, (0,6,"all"))
     t3 = MyThread(get_list, (0,5,"food"))
     t4 = MyThread(get_list, (0,5,"movie"))

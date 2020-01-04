@@ -3,3 +3,4 @@ pics
 __pycache__
 config.ini
 test.py
+.Ds_store
