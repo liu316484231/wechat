@@ -66,6 +66,7 @@ def article(cls, id):
     data = {
         'title': chs_to_cht(result['title']),
         'html': chs_to_cht(result['html']),
+        'digest' : chs_to_cht(result['digest']),
         'list' : list_rec
     }
     return render_template('article.html', data=data)
