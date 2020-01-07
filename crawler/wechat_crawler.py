@@ -24,6 +24,7 @@ ggh_class = config['ggh']['ggh_class']
 ggh_id = config['ggh']['ggh_id']
 cookies = config['ggh']['ggh_cookies']
 token = config['ggh']['ggh_token']
+page_total = int(config['ggh']['ggh_page'])
 
 data = {
     "token": token,
@@ -38,7 +39,8 @@ data = {
     "type": "9",
 }
 
-for i in range(0, 10):
+print("總共會爬取: " + str(5*page_total))
+for i in range(0, page_total):
     print("第" + str(i) + "页(每页5篇文章)")
     data["begin"] = i * 5
     headers = {

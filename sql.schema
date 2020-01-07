@@ -1,0 +1,14 @@
+CREATE TABLE `ggh` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `url` varchar(500) NOT NULL DEFAULT '',
+  `title` varchar(500) NOT NULL DEFAULT '',
+  `cover` varchar(500) NOT NULL DEFAULT '',
+  `digest` varchar(1000) NOT NULL DEFAULT '',
+  `text` longtext CHARACTER SET utf8mb4 NOT NULL,
+  `html` longtext CHARACTER SET utf8mb4 NOT NULL,
+  `ggh_name` varchar(50) NOT NULL DEFAULT '',
+  `class` varchar(20) NOT NULL DEFAULT '',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `udx` (`url`)
+) ENGINE=InnoDB AUTO_INCREMENT=968 DEFAULT CHARSET=utf8;

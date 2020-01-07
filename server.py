@@ -28,7 +28,7 @@ def index():
     t2 = MyThread(get_list, (0,6,"all"))
     t3 = MyThread(get_list, (0,5,"food"))
     t4 = MyThread(get_list, (0,5,"movie"))
-    t5 = MyThread(get_list, (0,5,"yingxiao"))
+    t5 = MyThread(get_list, (0,5,"net"))
     t_list = [t1, t2, t3, t4, t5]
     for t in t_list:
         t.start()
@@ -37,13 +37,13 @@ def index():
     top = t2.get_result()
     food = t3.get_result()
     movie = t4.get_result()
-    yingxiao = t5.get_result()
+    net = t5.get_result()
     data = {
         'rec': process_data_index(rec),
         'top':  process_data_index(top),
         'food':  process_data_index(food),
         'movie':  process_data_index(movie),
-        'yingxiao':  process_data_index(yingxiao),
+        'net':  process_data_index(net),
     }
     return render_template('index.html', data=data)
 
@@ -64,8 +64,8 @@ def article(cls, id):
             'cover': item['cover']
         })
     data = {
-        'title': result['title'],
-        'html': result['html'],
+        'title': chs_to_cht(result['title']),
+        'html': chs_to_cht(result['html']),
         'list' : list_rec
     }
     return render_template('article.html', data=data)
