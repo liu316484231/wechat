@@ -1,3 +1,4 @@
+from pypinyin import lazy_pinyin
 from util.chinese_translate import chs_to_cht
 
 
@@ -12,3 +13,7 @@ def process_data_index(list):
             'cover': item['cover']
         })
     return new_list
+
+def hanzi_to_pinyin(hanzi):
+    pinyin = "".join(lazy_pinyin('刘冰'))
+    return pinyin
