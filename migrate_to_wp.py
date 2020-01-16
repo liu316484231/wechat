@@ -4,6 +4,8 @@ import datetime
 import urllib.parse
 import pymysql
 from util.chinese_translate import cht_to_chs
+from util.util import hanzi_to_pinyin
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
@@ -25,8 +27,8 @@ cur = conn.cursor()
 
 
 
-cate = {"class": "四书五经", "id": 10}
-file_path = '/Users/admin/github/chinese-poetry/sishuwujing/zhongyong.json'
+cate = {"class": "宋词", "id": 5}
+file_path = '/Users/admin/github/chinese-poetry/json/poet.song.0.json'
 
 with open(file_path, 'r') as fw:
     result = fw.read()
@@ -44,7 +46,8 @@ with open(file_path, 'r') as fw:
         if "paragraphs" in item:
             graphs = item['paragraphs']
         print(title,chapter,section,graphs)
-        title = chapter
+        # set title
+        # title = chapter
 
         wp_content = "<!-- wp:heading --><h2>" + cate["class"] + "：" + title + "</h2><!-- /wp:heading -->"
         if author != None:
@@ -66,10 +69,26 @@ with open(file_path, 'r') as fw:
         cur.execute(
             "insert into wp2posts(post_author,post_date,post_date_gmt,post_content,post_title,post_name,post_modified,post_modified_gmt,post_excerpt,to_ping,pinged,post_content_filtered) values(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
             inserted)
-        print("插入成功:" + str(conn.insert_id()))
         id = conn.insert_id()
+        print("插入成功:" + str(id))
 
         cur.execute("insert into wp2term_relationships(object_id,term_taxonomy_id) values (%s,%s)", (id, cate["id"]))
+
+        # 注释部分为增加作者tag 暂时不去弄了
+        # author_tag = hanzi_to_pinyin(author)
+        # cur.execute("select * from wp2terms where slug = %s", author_tag)
+        # res = cur.fetchone()
+        # print(res)
+        # if res == None:
+        #     cur.execute( "insert into wp2terms(name,slug) values(%s,%s)", (author, author_tag))
+        #     term_id = conn.insert_id()
+        #     print("插入term成功:" + str(term_id))
+        #     cur.execute("insert into wp2term_taxonomy(term_id,taxonomy,description) values (%s,%s,%s)", (term_id, "post_tag",""))
+        # else:
+        #     term_id = res[0]
+        # cur.execute("insert into wp2term_relationships(object_id,term_taxonomy_id) values (%s,%s)", (id, term_id))
+        #
+
 
         conn.commit()
 

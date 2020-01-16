@@ -15,5 +15,5 @@ def process_data_index(list):
     return new_list
 
 def hanzi_to_pinyin(hanzi):
-    pinyin = "".join(lazy_pinyin('刘冰'))
+    pinyin = "".join(lazy_pinyin(hanzi))
     return pinyin
